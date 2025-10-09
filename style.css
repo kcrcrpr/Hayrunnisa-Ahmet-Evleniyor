@@ -871,11 +871,14 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 20px; /* İki link arasına boşluk ekler */
+    flex-wrap: wrap; /* Küçük ekranlarda sığmazsa alt satıra geçmesi için */
 }
+
 .designer-link {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px; /* İkon ve yazı arasına boşluk (mevcut kodda 6px, 8px'e çıkarıldı) */
     color: var(--muted);
     text-decoration: none;
     font-size: 0.8rem;
@@ -884,15 +887,34 @@ h2 {
     padding: 4px 8px;
     border-radius: 6px;
 }
+
 .designer-link:hover {
     color: var(--sage);
     background: rgba(92, 110, 88, 0.05);
     transform: translateY(-1px);
 }
+
+/* --- İkon Renklendirmeleri --- */
+
+/* Genel ikon stili */
 .designer-link i {
     font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+/* LinkedIn ikonuna özel renk */
+.designer-link i.fa-linkedin {
     color: #0077b5; /* LinkedIn mavi rengi */
 }
-.designer-link:hover i {
+.designer-link:hover i.fa-linkedin {
     color: #005885; /* LinkedIn koyu mavi */
 }
+
+/* Web sitesi (globe) ikonuna özel renk */
+.designer-link i.fa-globe {
+    color: var(--sage); /* Tema renginiz olan sage ile uyumlu */
+}
+.designer-link:hover i.fa-globe {
+    color: var(--sage-light); /* Tema renginizin açığı */
+}
+
