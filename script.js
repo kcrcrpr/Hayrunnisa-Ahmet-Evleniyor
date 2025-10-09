@@ -35,6 +35,12 @@ function initVhUnit() {
         const correctedVh = visualHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${correctedVh}px`);
       }
+      
+      // iPhone 12 özel düzeltmesi
+      if (window.innerWidth === 390 && window.innerHeight === 844) {
+        const iphone12Vh = Math.min(actualHeight, 844) * 0.01;
+        document.documentElement.style.setProperty('--vh', `${iphone12Vh}px`);
+      }
     }
   }
   
@@ -337,6 +343,42 @@ function initMobileOptimizations() {
 
     // Dropdown için mobil optimizasyonlar
     initMobileDropdownOptimizations();
+    
+    // iPhone 12 özel optimizasyonları
+    initIPhone12Optimizations();
+  }
+}
+
+/**
+ * 8.1. iPhone 12 Özel Optimizasyonları
+ */
+function initIPhone12Optimizations() {
+  // iPhone 12 tespiti
+  const isIPhone12 = window.innerWidth === 390 && window.innerHeight === 844;
+  
+  if (isIPhone12) {
+    // iPhone 12 için özel viewport ayarları
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport) {
+      viewport.content = 'width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no';
+    }
+    
+    // iPhone 12 için scroll optimizasyonu
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    
+    // iPhone 12 için section padding ayarları
+    const sections = document.querySelectorAll('.full-page-section');
+    sections.forEach(section => {
+      section.style.paddingBottom = '100px';
+    });
+    
+    // iPhone 12 için contact section görünürlüğü
+    const contactSection = document.querySelector('.contact-section');
+    if (contactSection) {
+      contactSection.style.marginBottom = '20px';
+      contactSection.style.paddingBottom = '10px';
+    }
   }
 }
 
@@ -352,10 +394,20 @@ function initMobileDropdownOptimizations() {
     // iOS'ta dropdown'ın doğru çalışması için
     dropdown.addEventListener('focus', () => {
       dropdown.style.fontSize = '16px';
+      // iPhone 12 için özel düzeltme
+      if (window.innerWidth === 390 && window.innerHeight === 844) {
+        dropdown.style.position = 'relative';
+        dropdown.style.zIndex = '9999';
+      }
     });
     
     dropdown.addEventListener('blur', () => {
       dropdown.style.fontSize = '1rem';
+      // iPhone 12 için özel düzeltme
+      if (window.innerWidth === 390 && window.innerHeight === 844) {
+        dropdown.style.position = '';
+        dropdown.style.zIndex = '';
+      }
     });
   }
 
