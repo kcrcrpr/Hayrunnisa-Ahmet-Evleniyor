@@ -217,6 +217,8 @@ h2 {
 .custom-dropdown {
     position: relative;
     width: 100%;
+    /* iPhone 12 için dropdown optimizasyonu */
+    z-index: 10;
 }
 .custom-dropdown select {
     width: 100%;
@@ -232,6 +234,9 @@ h2 {
     -moz-appearance: none;
     cursor: pointer;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    /* iPhone 12 için dropdown optimizasyonu */
+    position: relative;
+    z-index: 1;
 }
 .custom-dropdown select:focus {
     outline: none;
@@ -618,7 +623,7 @@ h2 {
         font-size: 1rem;
     }
     .floating-rsvp-button {
-        bottom: 15px;
+        bottom: 55px; /* Mobilde designer footer için alan bırakıldı */
         right: 15px;
     }
     .floating-btn-content {
@@ -628,6 +633,16 @@ h2 {
     .floating-btn-text {
         font-size: 0.8rem;
     }
+    .designer-footer {
+        padding: 6px 15px;
+    }
+    .designer-link {
+        font-size: 0.75rem;
+        gap: 5px;
+    }
+    .designer-link i {
+        font-size: 0.8rem;
+    }
 }
 
 /* iOS Safari için özel düzeltmeler */
@@ -635,11 +650,14 @@ h2 {
     .full-page-section {
         /* iOS Safari'de viewport height sorunları için */
         height: -webkit-fill-available;
+        min-height: -webkit-fill-available;
     }
     .section-content {
         /* iOS Safari'de scroll sorunları için */
         -webkit-overflow-scrolling: touch;
         overscroll-behavior: contain;
+        /* iPhone 12 için ekstra alan */
+        padding-bottom: 80px;
     }
     .contact-modal-overlay {
         /* iOS Safari'de modal sorunları için */
@@ -654,6 +672,45 @@ h2 {
         /* iOS Safari'de scroll sorunları için */
         -webkit-overflow-scrolling: touch;
         overscroll-behavior: contain;
+    }
+    
+    /* iPhone 12 özel düzeltmeler */
+    @media only screen 
+        and (device-width: 390px) 
+        and (device-height: 844px) 
+        and (-webkit-device-pixel-ratio: 3) {
+        .full-page-section {
+            height: 100vh;
+            height: -webkit-fill-available;
+            padding-bottom: 100px; /* iPhone 12 için ekstra alan */
+        }
+        .section-content {
+            padding-bottom: 120px; /* iPhone 12 için daha fazla alan */
+            min-height: calc(100vh - 200px);
+        }
+        .rsvp-container {
+            padding-bottom: 20px;
+        }
+        .contact-section {
+            margin-bottom: 20px;
+        }
+        .floating-rsvp-button {
+            bottom: 80px; /* iPhone 12 için daha yukarı */
+        }
+        .designer-footer {
+            padding: 10px 20px; /* iPhone 12 için daha fazla padding */
+        }
+        .custom-dropdown {
+            z-index: 100; /* iPhone 12 için yüksek z-index */
+        }
+        .custom-dropdown select {
+            font-size: 16px; /* iPhone 12'de zoom engelleme */
+            z-index: 101;
+        }
+        .rsvp-card.enhanced-form {
+            padding: 25px 20px; /* iPhone 12 için padding azaltıldı */
+            margin-bottom: 20px;
+        }
     }
 }
 
@@ -756,7 +813,7 @@ h2 {
 /* Floating Katılım Butonu */
 .floating-rsvp-button {
     position: fixed;
-    bottom: 20px;
+    bottom: 60px; /* Designer footer için alan bırakıldı */
     right: 20px;
     z-index: 1000;
     animation: floatingPulse 2s ease-in-out infinite;
@@ -798,4 +855,44 @@ h2 {
         transform: scale(1.05);
         box-shadow: 0 6px 25px rgba(92, 110, 88, 0.4);
     }
+}
+
+/* Designer Footer */
+.designer-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(92, 110, 88, 0.1);
+    padding: 8px 20px;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.designer-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+.designer-link:hover {
+    color: var(--sage);
+    background: rgba(92, 110, 88, 0.05);
+    transform: translateY(-1px);
+}
+.designer-link i {
+    font-size: 0.9rem;
+    color: #0077b5; /* LinkedIn mavi rengi */
+}
+.designer-link:hover i {
+    color: #005885; /* LinkedIn koyu mavi */
 }
